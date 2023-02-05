@@ -9,7 +9,7 @@ export const ProgressBar = ({value}: Props) => {
     return (
         <View style={styles.container}>
           <Text style={styles.value}>
-            {value}%
+            {value.toFixed(0)}%
           </Text>
           <View style={styles.tracker}> 
             <View style={[styles.progress, {width: `${value}%`}]} />

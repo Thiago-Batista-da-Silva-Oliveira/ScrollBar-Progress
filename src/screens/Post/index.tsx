@@ -1,13 +1,36 @@
+import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { ProgressBar } from "../../components";
 import { styles } from "./styles";
 
+type ScrollProps = {
+  layoutMeasurement: {
+    height: number;
+  };
+  contentOffset: {
+    y: number;
+  };
+  contentSize: {
+    height: number;
+  };
+};
+
 export const Post = () => {
+  const [percentage, setPercentage]   = useState(0);
+  const scrollPercentage = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }: ScrollProps) => {
+    const value = ((layoutMeasurement.height + contentOffset.y)/contentSize.height)*100;
+    setPercentage(value);
+  };
   return (
     <View style={styles.container}>
       <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.content}
+        onScroll={(event) => scrollPercentage(event.nativeEvent)}
       >
         <Text style={styles.title}>Lorem ipsum</Text>
         <View>
@@ -44,7 +67,7 @@ export const Post = () => {
           </Text>
         </View>
       </ScrollView>
-      <ProgressBar value={30} />
+      <ProgressBar value={percentage} />
     </View>
   );
 };

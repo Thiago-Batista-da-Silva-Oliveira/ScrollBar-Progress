@@ -1,4 +1,5 @@
 import { ScrollView, Text, View } from "react-native";
+import { ProgressBar } from "../../components";
 import { styles } from "./styles";
 
 export const Post = () => {
@@ -43,6 +44,7 @@ export const Post = () => {
           </Text>
         </View>
       </ScrollView>
+      <ProgressBar />
     </View>
   );
 };

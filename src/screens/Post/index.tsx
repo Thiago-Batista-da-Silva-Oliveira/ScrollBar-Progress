@@ -44,7 +44,7 @@ export const Post = () => {
           </Text>
         </View>
       </ScrollView>
-      <ProgressBar />
+      <ProgressBar value={30} />
     </View>
   );
 };

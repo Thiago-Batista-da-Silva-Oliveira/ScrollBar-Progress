@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { ProgressBar } from "../../components";
 import { styles } from "./styles";
 
@@ -17,13 +17,15 @@ type ScrollProps = {
 
 export const Post = () => {
   const [percentage, setPercentage]   = useState(0);
+  const dimensions = useWindowDimensions();
   const scrollPercentage = ({
     layoutMeasurement,
     contentOffset,
     contentSize,
   }: ScrollProps) => {
+    const visibleContent = Math.ceil((dimensions.height / contentSize.height) * 100);
     const value = ((layoutMeasurement.height + contentOffset.y)/contentSize.height)*100;
-    setPercentage(value);
+    setPercentage(value < visibleContent ? 0 : value);
   };
   return (
     <View style={styles.container}>
